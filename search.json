@@ -1,24 +1,17 @@
 [
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
     "objectID": "posts/00_context-object-pattern/index.html",
     "href": "posts/00_context-object-pattern/index.html",
     "title": "Das Context Design Pattern",
     "section": "",
-    "text": "Gruppiert zusammengehängende Parameter oder Zustände in ein Objekt, welches von mehreren Funktionen verwendet wird.\nVorteile:\n\nweniger Funktionsparameter\nleichte Erweiterbarkeit\nmehrere Funktionen können auf die gleichen Infos zugreifen\n\nNachteile:\n\nlow-level Funktionen benötigen nicht den gesamten Kontext\nSchwierig nachzuvollziehen wo Daten evtl. geändert werden\nGod object, Kontext wächst unkrontolliert wenn unbedacht eingesetzt\n\nBest-practice:\n\nKontextobject nur für high-level Orchestration verwenden\nHelferfunktion explizit definieren, nur übergeben was gebraucht wird\ngroße Kontexte aufteilen\nverwende unveränderbare Objekte wo möglich\n\n\nVorher:\ndef preprocess(image, resize_width, resize_height): ...\ndef detect_objects(image, resize_width, resize_height): ...\ndef annotate(image, detections, color, thickness): ...\nRefactor:\n@dataclass\nclass DetectionContext:\n    image: Image\n    resize_width: int = 640\n    resize_height: int = 640\n    processed_image: Image | None = None \n    detections: Detections | None = None\n\nclass ObjectDetector:\n    def _preprocess(self, image, resize_width, resize_height): ...\n    def detect(self, context: DetectionContext): ...\nDie low-level Funktion nutzt explizte Parameter, während die top-level FUnktion den vollen Kontext verwendet."
+    "text": "Gruppiert zusammengehängende Parameter oder Zustände in ein Objekt, welches von mehreren Funktionen verwendet wird.\nVorteile:\n\nweniger Funktionsparameter\nleichte Erweiterbarkeit\nmehrere Funktionen können auf die gleichen Infos zugreifen\n\nNachteile:\n\nlow-level Funktionen benötigen nicht den gesamten Kontext\nSchwierig nachzuvollziehen wo Daten evtl. geändert werden\nGod object, Kontext wächst unkrontolliert wenn unbedacht eingesetzt\n\nBest-practice:\n\nKontextobject nur für high-level Orchestration verwenden\nHelferfunktion explizit definieren, nur übergeben was gebraucht wird\ngroße Kontexte aufteilen\nverwende unveränderbare Objekte wo möglich\n\n\nVorher:\ndef preprocess(image, resize_width, resize_height): ...\ndef detect_objects(image, resize_width, resize_height): ...\ndef annotate(image, detections, color, thickness): ...\nRefactor:\n@dataclass\nclass DetectionContext:\n    image: Image\n    resize_width: int = 640\n    resize_height: int = 640\n    processed_image: Image | None = None \n    detections: Detections | None = None\n\nclass ObjectDetector:\n    def _preprocess(self, image, resize_width, resize_height): ...\n    def detect(self, context: DetectionContext): ...\nDie low-level Funktion nutzt explizte Parameter, während die top-level Funktion den vollen Kontext verwendet."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "myblog",
     "section": "",
-    "text": "Das Context Design Pattern\n\n\n\ncode\n\ndesign patterns\n\n\n\n\n\n\n\n\n\nOct 31, 2025\n\n\nFR\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nOct 31, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nOct 28, 2025\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "Das Context Design Pattern\n\n\n\ncode\n\ndesign patterns\n\n\n\n\n\n\n\n\n\nOct 31, 2025\n\n\nFR\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -26,12 +19,5 @@
     "title": "About",
     "section": "",
     "text": "About this blog"
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
   }
 ]
