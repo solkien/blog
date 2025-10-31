@@ -29,6 +29,32 @@ File                 | Description          |
 `posts/_metadata.yml`| Shared options       |
 `styles.css`         | Custom CSS           |
 
+
+Add `.gitignore`:
+
+```
+/.quarto/
+/_site/
+```
+
+Commit: 
+
+```
+git add .
+git commit -m "Initial commit"
+```
+
+Create `gh-pages` branch:
+
+```
+git checkout --orphan gh-pages
+git reset --hard
+git commit --allow-empty -m "Initialising gh-pages branch"
+git push origin gh-pages
+```
+
+Modify the **Source** branch for the repository to `gh-pages`.
+
 ## Post
 
 The header of a post could look like this:
@@ -49,5 +75,13 @@ categories:
 ```
 
 Name it `index.qmd` and add it to a subdirecotry `XX_short-title` in `posts`. Drafts will only appear in preview. Posts with computational output should be freezed to avoid re-computation.
+
+
+When ready run:
+```shell
+quarto publish gh-pages
+```
+
+Make sure that you are in main branch.
 
 
