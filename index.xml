@@ -12,6 +12,118 @@
 <generator>quarto-1.8.25</generator>
 <lastBuildDate>Thu, 30 Oct 2025 23:00:00 GMT</lastBuildDate>
 <item>
+  <title>Das Context Design Pattern</title>
+  <dc:creator>FR </dc:creator>
+  <link>https://solkien.github.io/blog/posts/00_context-object-pattern/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Gruppiert zusammengehängende Parameter oder Zustände in ein Objekt, welches von mehreren Funktionen verwendet wird.</p>
+<p>Vorteile:</p>
+<ul>
+<li>weniger Funktionsparameter</li>
+<li>leichte Erweiterbarkeit</li>
+<li>mehrere Funktionen können auf die gleichen Infos zugreifen</li>
+</ul>
+<p>Nachteile:</p>
+<ul>
+<li>low-level Funktionen benötigen nicht den gesamten Kontext</li>
+<li>Schwierig nachzuvollziehen wo Daten evtl. geändert werden</li>
+<li><em>God object</em>, Kontext wächst unkrontolliert wenn unbedacht eingesetzt</li>
+</ul>
+<p>Best-practice:</p>
+<ul>
+<li>Kontextobject nur für high-level Orchestration verwenden</li>
+<li>Helferfunktion explizit definieren, nur übergeben was gebraucht wird</li>
+<li>große Kontexte aufteilen</li>
+<li>verwende unveränderbare Objekte wo möglich</li>
+</ul>
+<hr>
+<p>Vorher:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> preprocess(image, resize_width, resize_height): ...</span>
+<span id="cb1-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> detect_objects(image, resize_width, resize_height): ...</span>
+<span id="cb1-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> annotate(image, detections, color, thickness): ...</span></code></pre></div></div>
+<p>Refactor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">@dataclass</span></span>
+<span id="cb2-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> DetectionContext:</span>
+<span id="cb2-3">    image: Image</span>
+<span id="cb2-4">    resize_width: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">640</span></span>
+<span id="cb2-5">    resize_height: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">640</span></span>
+<span id="cb2-6">    processed_image: Image <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> </span>
+<span id="cb2-7">    detections: Detections <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span></span>
+<span id="cb2-8"></span>
+<span id="cb2-9"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> ObjectDetector:</span>
+<span id="cb2-10">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> _preprocess(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, image, resize_width, resize_height): ...</span>
+<span id="cb2-11">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> detect(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, context: DetectionContext): ...</span></code></pre></div></div>
+<p>Die low-level Funktion nutzt explizte Parameter, während die top-level FUnktion den vollen Kontext verwendet.</p>
+
+
+
+ ]]></description>
+  <category>code</category>
+  <category>design patterns</category>
+  <guid>https://solkien.github.io/blog/posts/00_context-object-pattern/</guid>
+  <pubDate>Thu, 30 Oct 2025 23:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Post With Code</title>
   <dc:creator>Harlow Malloc</dc:creator>
   <link>https://solkien.github.io/blog/posts/post-with-code/</link>
