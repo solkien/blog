@@ -55,33 +55,29 @@ git push origin gh-pages
 
 Modify the **Source** branch for the repository to `gh-pages`.
 
-## Post
-
-The header of a post could look like this:
-
-```quarto
-draft: true
-freeze: true
-title: "Post With Code"
-description: "Post description"
-author: "Fizz McPhee"
-date: "5/22/2021"
-date-modified: "5/23/2021"
-categories:
-    - news
-    - code
-    - analysis
----
-```
-
-Name it `index.qmd` and add it to a subdirecotry `XX_short-title` in `posts`. Drafts will only appear in preview. Posts with computational output should be freezed to avoid re-computation.
-
-
 When ready run:
 ```shell
 quarto publish gh-pages
 ```
 
-Make sure that you are in main branch.
+Make sure that you are in main branch. Whenever you make a commit now, blog will updated.
+
+## Post
+
+The header of a post could look like this:
+
+```quarto
+---
+title: "Das Context Design Pattern"
+author: "FR"
+date: "10/31/2025"
+categories: [code, design patters]
+---
+```
+
+Name it `index.qmd` and add it to a subdirecotry `XX_short-title` in `posts`. Drafts will only appear in preview. Posts with computational output should be freezed to avoid re-computation. You can freeze all posts globally in `posts/_metadata.yml`.
+
+
+
 
 

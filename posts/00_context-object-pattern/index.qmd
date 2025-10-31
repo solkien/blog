@@ -1,0 +1,58 @@
+---
+title: "Das Context Design Pattern"
+author: "FR"
+date: "10/31/2025"
+categories: [code, design patterns]
+---
+
+Gruppiert zusammengehängende Parameter oder Zustände in ein Objekt, welches von mehreren Funktionen verwendet wird.
+
+Vorteile:
+
+- weniger Funktionsparameter
+- leichte Erweiterbarkeit
+- mehrere Funktionen können auf die gleichen Infos zugreifen
+
+Nachteile:
+
+- low-level Funktionen benötigen nicht den gesamten Kontext
+- Schwierig nachzuvollziehen wo Daten evtl. geändert werden
+- *God object*, Kontext wächst unkrontolliert wenn unbedacht eingesetzt
+
+Best-practice:
+
+- Kontextobject nur für high-level Orchestration verwenden
+- Helferfunktion explizit definieren, nur übergeben was gebraucht wird
+- große Kontexte aufteilen
+- verwende unveränderbare Objekte wo möglich
+
+
+---
+
+Vorher:
+
+```python
+def preprocess(image, resize_width, resize_height): ...
+def detect_objects(image, resize_width, resize_height): ...
+def annotate(image, detections, color, thickness): ...
+```
+
+
+Refactor:
+
+```python
+@dataclass
+class DetectionContext:
+    image: Image
+    resize_width: int = 640
+    resize_height: int = 640
+    processed_image: Image | None = None 
+    detections: Detections | None = None
+
+class ObjectDetector:
+    def _preprocess(self, image, resize_width, resize_height): ...
+    def detect(self, context: DetectionContext): ...
+```
+
+Die low-level Funktion nutzt explizte Parameter, während die top-level FUnktion den vollen Kontext verwendet.
+
