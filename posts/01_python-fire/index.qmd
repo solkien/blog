@@ -1,0 +1,69 @@
+---
+title: "Command Line Interface mit Python Fire"
+author: "FR"
+date: "11/01/2025"
+categories: [python]
+---
+
+Automatisches Generieren eines CLI:
+
+```{.python filename="example.py"}
+import fire
+
+class Calculator:
+
+    def add(self, x, y):
+        return x + y
+
+    def multiply(self, x, y):
+        return x * y
+
+if __name__ == "__main__":
+    fire.Fire(Calculator)
+```
+
+
+```{.bash filename="Terminal"}
+python example.py add 1 2
+```
+
+Automatischer Import von Modulen in REPL:
+
+```{.bash filename="Terminal"}
+python example.py -- --interactive
+```
+
+Alle Module, Funktionen und Klassen werden automatisch importiert.
+
+Bestehenden Code erkunden ohne Fire:
+
+```{.python filename="example.py"}
+def hello(name):
+    return f"Hello {name}!"
+```
+
+```{.bash filename="Terminal"}
+python -m fire example hello --name="World"
+```
+
+Python mit Bash kombinieren:
+
+```{.bash filename="Terminal"}
+python -m fire example hello --name=World | wc -w
+```
+
+Oder mit Python Methoden:
+```{.bash filename="Terminal"}
+python -m fire example hello --name=World upper
+```
+
+
+
+
+
+
+
+
+
+
+
